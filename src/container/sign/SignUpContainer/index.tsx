@@ -1,10 +1,32 @@
-import React from 'react';
-import { Box, Avatar, Typography, Grid, TextField, Button, Link } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Avatar, Typography, Grid, TextField, Button, Link, FormHelperText } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
 
 const SignUpContainer = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useState({ email: '', password: '' });
+    const [emailValidation, setEmailValidation] = useState(false);
+    const [pwdValidation, setPwdValidation] = useState(false);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUser({ ...user, [event.target.id]: event.target.value})
+        if (event.target.id === 'email') {
+            if (event.target.value.includes('@')) {
+                setEmailValidation(true);
+            } else {
+                setEmailValidation(false);
+            }
+        }
+        if (event.target.id === 'password') {
+            if (event.target.value.length >= 8) {
+                setPwdValidation(true);
+            } else {
+                setPwdValidation(false);
+            }
+        }
+    };
+
     return (
         <Box
             sx={{
@@ -29,8 +51,11 @@ const SignUpContainer = () => {
                             id="email"
                             label="Email Address"
                             name="email"
-                            autoComplete="email"
+                            value={user.email}
+                            onChange={handleChange}
+                            error={!(emailValidation || user.email.length === 0)}
                             inputProps={{"data-testid":"email-input"}}
+                            helperText={!(emailValidation || user.email.length === 0) && "'@'를 포함해야 합니다."}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -41,8 +66,11 @@ const SignUpContainer = () => {
                             label="Password"
                             type="password"
                             id="password"
-                            autoComplete="new-password"
+                            value={user.password}
+                            onChange={handleChange}
+                            error={!(pwdValidation || user.password.length === 0)}
                             inputProps={{"data-testid":"password-input"}}
+                            helperText={!(pwdValidation || user.password.length === 0) && "8자 이상을 입력해야 합니다."}
                         />
                     </Grid>
                 </Grid>
@@ -52,6 +80,7 @@ const SignUpContainer = () => {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                     data-testid="signup-button"
+                    disabled={!(emailValidation && pwdValidation)}
                 >
                     회원가입 하기
                 </Button>
