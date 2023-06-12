@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Avatar, Typography, Grid, TextField, Button, Link, FormHelperText } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SignUpContainer = () => {
     const navigate = useNavigate();
@@ -27,6 +28,15 @@ const SignUpContainer = () => {
         }
     };
 
+    const handleSignUp = () => {
+        axios.post('https://www.pre-onboarding-selection-task.shop/auth/signup', user, {
+            headers: {
+            'Content-Type': 'application/json'
+            }
+          }).then((res) => navigate('/signin', { replace: true }))
+            .catch((res) => { console.log('Error!') });
+    }
+
     return (
         <Box
             sx={{
@@ -42,7 +52,7 @@ const SignUpContainer = () => {
             <Typography component="h1" variant="h5">
                 회원가입
             </Typography>
-            <Box component="form" noValidate onSubmit={() => console.log("signup")} sx={{ mt: 3 }}>
+            <Box sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
@@ -75,12 +85,12 @@ const SignUpContainer = () => {
                     </Grid>
                 </Grid>
                 <Button
-                    type="submit"
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                     data-testid="signup-button"
                     disabled={!(emailValidation && pwdValidation)}
+                    onClick={handleSignUp}
                 >
                     회원가입 하기
                 </Button>
