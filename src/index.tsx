@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import HomeLayout from './components/layouts/HomeLayout';
 import TodoContainer from './container/todo/TodoContainer';
 import SignUpContainer from './container/sign/SignUpContainer';
 import SignInContainer from './container/sign/SignInContainer';
+
+const isLogin = () => localStorage.getItem('data')
 
 const router = createBrowserRouter([
   {
@@ -19,11 +21,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/signin',
-        element: <SignInContainer />
+        element: !isLogin() ? <SignInContainer /> : <Navigate to="/todo" />
       },
       {
         path: '/signup',
-        element: <SignUpContainer />
+        element: !isLogin() ? <SignUpContainer /> : <Navigate to="/todo" />
       },
       {
         path: '/todo',
