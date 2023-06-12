@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Avatar, Typography, TextField, Button, Link } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
@@ -17,10 +17,11 @@ const SignInCotainer = () => {
             headers: {
             'Content-Type': 'application/json'
             }}).then((res) => {
-                localStorage.setItem('data', JSON.stringify(res.data));
+                localStorage.setItem('data', JSON.stringify(res.data))
                 navigate('/todo', {replace: true})
             }).catch((res) => { console.log('Error!') });
     }
+    
     return (
         <Box
             sx={{
