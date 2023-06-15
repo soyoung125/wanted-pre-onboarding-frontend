@@ -110,8 +110,8 @@ const TodoContainer = () => {
             </ListItemIcon>
             <ListItemText primary={todo.todo} />
 
-            <IconButton><DeleteOutlineIcon /></IconButton>
-            <IconButton><EditIcon /></IconButton>
+            <IconButton data-testid="modify-button"><DeleteOutlineIcon /></IconButton>
+            <IconButton data-testid="delete-button"><EditIcon /></IconButton>
           </ListItem>
         ))}
       </List>
