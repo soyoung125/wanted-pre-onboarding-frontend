@@ -14,7 +14,8 @@ interface TodoInterface {
 
 const TodoContainer = () => {
   const navigate = useNavigate();
-  const data = JSON.parse(localStorage.getItem('data') || '');
+  const dataString = localStorage.getItem('data');
+  const data = dataString ? JSON.parse(dataString) : null;
   const [todos, setTodos] = useState<TodoInterface[]>([]);
   const [selectedTodo, setSelectedTodo] = useState(0);
   const [todoInput, setTodoInput] = useState('');
