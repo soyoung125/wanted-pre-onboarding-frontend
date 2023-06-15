@@ -16,7 +16,9 @@ const TodoContainer = () => {
   const navigate = useNavigate();
   const data = JSON.parse(localStorage.getItem('data') || '');
   const [todos, setTodos] = useState<TodoInterface[]>([]);
+  const [selectedTodo, setSelectedTodo] = useState(0);
   const [todoInput, setTodoInput] = useState('');
+  const [newTodoInput, setNewTodoInput] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,7 +54,6 @@ const TodoContainer = () => {
     }
   };
   
-
   const createTodo = async () => {
     if (data) {
       try {
@@ -71,7 +72,7 @@ const TodoContainer = () => {
     }
   };
 
-  const handleChange = (newData: TodoInterface) => {
+  const handleUpdate = (newData: TodoInterface) => {
     axios.put(`https://www.pre-onboarding-selection-task.shop/todos/${newData.id}`,
       { todo: newData.todo, isCompleted: newData.isCompleted },
       {
@@ -91,6 +92,16 @@ const TodoContainer = () => {
         }
       }).then((res) => { setTodos(todos.filter((todo) => todo.id !== id)) })
       .catch((err) => console.log(err));
+  }
+
+  const handleTodoEdit = (todo: TodoInterface) => {
+    if (selectedTodo === todo.id) {
+      handleUpdate({...todo, todo: newTodoInput})
+      setSelectedTodo(0);
+    } else {
+      setSelectedTodo(todo.id);
+      setNewTodoInput(todo.todo)
+    }
   }
 
   return (
@@ -117,18 +128,26 @@ const TodoContainer = () => {
                 checked={todo.isCompleted}
                 tabIndex={-1}
                 disableRipple
-                onClick={() => handleChange({...todo, isCompleted: !todo.isCompleted})}
+                onClick={() => handleUpdate({...todo, isCompleted: !todo.isCompleted})}
               />
             </ListItemIcon>
-            <ListItemText primary={todo.todo} />
 
-            <IconButton
-              data-testid="modify-button"
-              onClick={() => handleDelete(todo.id)}
-            >
-              <DeleteOutlineIcon />
-            </IconButton>
-            <IconButton data-testid="delete-button"><EditIcon /></IconButton>
+            {selectedTodo === todo.id
+              ? <>
+                <TextField
+                  size='small'
+                  value={newTodoInput}
+                  onChange={(e) => setNewTodoInput(e.target.value)}
+                  inputProps={{ 'data-testid': "modify-input" }}
+                />
+                <Button data-testid="submit-button" onClick={() => handleTodoEdit(todo)}>제출</Button>
+                <Button data-testid="cancel-button" onClick={() => setSelectedTodo(0)}>취소</Button>
+              </>
+              : <>
+                <ListItemText primary={todo.todo} />
+                <Button data-testid="delete-button" onClick={() => handleTodoEdit(todo)}>수정</Button>
+                <Button data-testid="modify-button" onClick={() => handleDelete(todo.id)}>삭제</Button>
+              </>}
           </ListItem>
         ))}
       </List>
