@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemIcon, Checkbox, TextField, Button, ListItemText } from "@mui/material";
+import { List, ListItem, TextField, Button, ListItemText } from "@mui/material";
 import axios from "axios";
 import React, { useState } from 'react';
 import { TodoComponentProps, TodoInterface } from "../../../types";
