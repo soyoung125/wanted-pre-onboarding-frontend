@@ -54,22 +54,32 @@ const TodoContainer = () => {
   
 
   const createTodo = async () => {
-  if (data) {
-    try {
-      const response = await axios.post('https://www.pre-onboarding-selection-task.shop/todos', {todo: todoInput}, {
-        headers: {
-          'Authorization': `Bearer ${data.access_token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      const newData = response.data;
-      setTodos(todos.concat(newData));
-      setTodoInput('');
-    } catch (error) {
-      console.log(error);
+    if (data) {
+      try {
+        const response = await axios.post('https://www.pre-onboarding-selection-task.shop/todos', { todo: todoInput }, {
+          headers: {
+            'Authorization': `Bearer ${data.access_token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        const newData = response.data;
+        setTodos(todos.concat(newData));
+        setTodoInput('');
+      } catch (error) {
+        console.log(error);
+      }
     }
+  };
+
+  const handleChange = (newData: TodoInterface) => {
+    axios.put(`https://www.pre-onboarding-selection-task.shop/todos/${newData.id}`, 
+    {todo: newData.todo, isCompleted: newData.isCompleted},
+    {headers: {
+      'Authorization': `Bearer ${data.access_token}`,
+      'Content-Type': 'application/json'
+    }}).then((res) => {setTodos(todos.map((todo) => todo.id === newData.id ? res.data : todo))})
+    .catch((err) => console.log(err));
   }
-};
 
   return (
     <>
@@ -95,6 +105,7 @@ const TodoContainer = () => {
                 checked={todo.isCompleted}
                 tabIndex={-1}
                 disableRipple
+                onClick={() => handleChange({...todo, isCompleted: !todo.isCompleted})}
               />
             </ListItemIcon>
             <ListItemText primary={todo.todo} />
