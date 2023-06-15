@@ -1,4 +1,4 @@
-import { Button, Checkbox, List, ListItem, ListItemIcon, ListItemText, TextField } from '@mui/material';
+import { Stack, Button, Checkbox, List, ListItem, ListItemIcon, ListItemText, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -105,15 +105,18 @@ const TodoContainer = () => {
 
   return (
     <>
-      <TextField
-        id="todo-input"
-        placeholder='할 일을 입력하세요.'
-        variant="standard"
-        inputProps={{  'data-testid': "new-todo-input"  }}
-        value={todoInput}
-        onChange={(e) => setTodoInput(e.target.value)}
-      />
-      <Button  data-testid="new-todo-add-button" onClick={createTodo}>추가하기</Button>
+      <Stack direction="row">
+        <TextField
+          id="todo-input"
+          placeholder='할 일을 입력하세요.'
+          fullWidth
+          variant="standard"
+          inputProps={{ 'data-testid': "new-todo-input" }}
+          value={todoInput}
+          onChange={(e) => setTodoInput(e.target.value)}
+        />
+        <Button data-testid="new-todo-add-button" onClick={createTodo}>추가</Button>
+      </Stack>
 
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         {todos.map((todo) => (

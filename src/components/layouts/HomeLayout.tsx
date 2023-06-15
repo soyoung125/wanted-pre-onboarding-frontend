@@ -27,8 +27,18 @@ const HomeLayout = () => {
 
         </Toolbar>
       </AppBar>
+      
       <Container component="main" ref={ref} sx={{ mt: 1 }}>
-        <Outlet />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Outlet />
+        </Box>
       </Container>
     </>
   );
