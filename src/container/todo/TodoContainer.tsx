@@ -114,7 +114,7 @@ const TodoContainer = () => {
         value={todoInput}
         onChange={(e) => setTodoInput(e.target.value)}
       />
-      <Button  data-testid="new-todo-input" onClick={createTodo}>추가하기</Button>
+      <Button  data-testid="new-todo-add-button" onClick={createTodo}>추가하기</Button>
 
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         {todos.map((todo) => (
@@ -145,8 +145,8 @@ const TodoContainer = () => {
               </>
               : <>
                 <ListItemText primary={todo.todo} />
-                <Button data-testid="delete-button" onClick={() => handleTodoEdit(todo)}>수정</Button>
-                <Button data-testid="modify-button" onClick={() => handleDelete(todo.id)}>삭제</Button>
+                <Button data-testid="modify-button" onClick={() => handleTodoEdit(todo)}>수정</Button>
+                <Button data-testid="delete-button" onClick={() => handleDelete(todo.id)}>삭제</Button>
               </>}
           </ListItem>
         ))}

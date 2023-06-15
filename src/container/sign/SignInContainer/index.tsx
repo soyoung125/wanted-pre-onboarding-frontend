@@ -64,7 +64,7 @@ const SignInCotainer = () => {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    data-testid="signup-button"
+                    data-testid="signin-button"
                     onClick={handleLogin}
                 >
                     로그인 하기
