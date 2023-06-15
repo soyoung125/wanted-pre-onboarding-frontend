@@ -7,6 +7,7 @@ import HomeLayout from './components/layouts/HomeLayout';
 import TodoContainer from './container/todo/TodoContainer';
 import SignUpContainer from './container/sign/SignUpContainer';
 import SignInContainer from './container/sign/SignInContainer';
+import HomeContainer from './container/home/HomeContainer';
 
 const isLogin = () => localStorage.getItem('data')
 
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <>home</>
+        element: <HomeContainer />
       },
       {
         path: '/signin',
