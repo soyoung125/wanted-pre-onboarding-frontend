@@ -72,13 +72,25 @@ const TodoContainer = () => {
   };
 
   const handleChange = (newData: TodoInterface) => {
-    axios.put(`https://www.pre-onboarding-selection-task.shop/todos/${newData.id}`, 
-    {todo: newData.todo, isCompleted: newData.isCompleted},
-    {headers: {
-      'Authorization': `Bearer ${data.access_token}`,
-      'Content-Type': 'application/json'
-    }}).then((res) => {setTodos(todos.map((todo) => todo.id === newData.id ? res.data : todo))})
-    .catch((err) => console.log(err));
+    axios.put(`https://www.pre-onboarding-selection-task.shop/todos/${newData.id}`,
+      { todo: newData.todo, isCompleted: newData.isCompleted },
+      {
+        headers: {
+          'Authorization': `Bearer ${data.access_token}`,
+          'Content-Type': 'application/json'
+        }
+      }).then((res) => { setTodos(todos.map((todo) => todo.id === newData.id ? res.data : todo)) })
+      .catch((err) => console.log(err));
+  }
+
+  const handleDelete = (id: number) => {
+    axios.delete(`https://www.pre-onboarding-selection-task.shop/todos/${id}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${data.access_token}`,
+        }
+      }).then((res) => { setTodos(todos.filter((todo) => todo.id !== id)) })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -110,7 +122,12 @@ const TodoContainer = () => {
             </ListItemIcon>
             <ListItemText primary={todo.todo} />
 
-            <IconButton data-testid="modify-button"><DeleteOutlineIcon /></IconButton>
+            <IconButton
+              data-testid="modify-button"
+              onClick={() => handleDelete(todo.id)}
+            >
+              <DeleteOutlineIcon />
+            </IconButton>
             <IconButton data-testid="delete-button"><EditIcon /></IconButton>
           </ListItem>
         ))}
