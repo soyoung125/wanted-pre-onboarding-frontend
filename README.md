@@ -1,6 +1,8 @@
 # Wanted 프리온보딩 프론트엔드 선발과제
 
-[@soyoung125 (박소영)](https://github.com/soyoung125) 
+### [배포사이트로 이동하기](https://soyoung125.co.kr/)
+
+[박소영 (@soyoung125)](https://github.com/soyoung125) 
  
 ## ⚙️ 실행 방법
 
