@@ -2,7 +2,9 @@
 
 ### [배포사이트로 이동하기](https://soyoung125.co.kr/)
 
-[박소영 (@soyoung125)](https://github.com/soyoung125) 
+### [데모 영상보기](https://drive.google.com/file/d/1F1SRDYl1D3AYWxRZGp1_q_R6v3a5sQMp/view?usp=sharing)
+
+### [박소영 (@soyoung125)](https://github.com/soyoung125) 
  
 ## ⚙️ 실행 방법
 
